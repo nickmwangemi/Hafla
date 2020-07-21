@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get(
 # DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'hafla.loclx.io']
+ALLOWED_HOSTS = ['127.0.0.1', 'hafla.loclx.io', 'haflaevents.herokuapp.com']
 
 
 # Application definition
