@@ -124,4 +124,9 @@ dmypy.json
 # Environment Variables
 .env
 
+# Text backup files
+*.bak
+
+
+
 # End of https://www.gitignore.io/api/django

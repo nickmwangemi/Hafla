@@ -4,9 +4,10 @@ from accounts.models import CustomUser
 from .models import CustomUser
 from django.contrib.auth import authenticate
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-
+from events.models import Events
 # Create your views here.
+
+
 def register(request):
     if request.method == 'POST':
         # Get form values
@@ -65,24 +66,34 @@ def login(request):
         return render(request, 'accounts/login.html')
 
 
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, 'You are now logged out')
+        return redirect('pages:index')
+
+
 def dashboard(request):
-    user = CustomUser()
-    if not request.user.is_authenticated:
-        messages.info(request, 'Please login to proceed.')
-        return redirect('accounts:login')
-    else:
-        customer_id = request.user.id
-        bookings = Booking.objects.order_by(
-            '-date_of_booking').filter(customer_details_id=customer_id)
-        payment = Payment.objects.filter(customer_details_id=customer_id)
+    # user = CustomUser()
+    # if not request.user.is_authenticated:
+    #     messages.info(request, 'Please login to proceed.')
+    #     return redirect('accounts:login')
+    # else:
+    #     customer_id = request.user.id
+    #     events = Events.objects.order_by(
+    #         '-date_of_Events').filter(customer_details_id=customer_id)
+    #     payment = Payment.objects.filter(customer_details_id=customer_id)
 
-        paginator = Paginator(bookings, 5)
-        page = request.GET.get('page')
-        paged_bookings = paginator.get_page(page)
+    #     paginator = Paginator(events, 5)
+    #     page = request.GET.get('page')
+    #     paged_events = paginator.get_page(page)
 
-        context = {
-            'bookings': paged_bookings,
-            'payment': payment,
-        }
+    #     context = {
+    #         'events': paged_events,
+    #         'payment': payment,
+    #     }
+    context = {
 
-        return render(request, 'accounts/dashboard.html', context)
+    }
+
+    return render(request, 'accounts/dashboard.html', context)
